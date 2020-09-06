@@ -4,7 +4,7 @@ export function createStore(rootReducer, initialState){
 
     return {
         // action = {type: 'INCREMENT'}
-        dispatch(state, action) {
+        dispatch(action) {
             state = rootReducer(state, action)
             subscribers.forEach(sub => sub())
         },
