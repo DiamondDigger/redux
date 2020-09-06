@@ -1,6 +1,6 @@
-import {createStore} from "./createStore";
+import {createStore} from 'redux';
 import './style.css'
-import {rootReducer} from "./redux/rootReducer";
+import {rootReducer} from './redux/rootReducer';
 
 const counter = document.getElementById('counter')
 const addBtn = document.getElementById('add')
