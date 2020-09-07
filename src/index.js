@@ -3,6 +3,7 @@ import './style.css'
 import {rootReducer} from './redux/rootReducer';
 import {asyncIncrement, decrement, increment} from "./redux/actions";
 import thunk from 'redux-thunk'
+import logger from 'redux-logger'
 
 const counter = document.getElementById('counter')
 const addBtn = document.getElementById('add')
@@ -10,11 +11,13 @@ const subBtn = document.getElementById('sub')
 const asyncBtn = document.getElementById('async')
 const themeBtn = document.getElementById('theme')
 
-function logger(state) {
+function customLogger(state) {
     return function(next) {
         return function(action) {
+            console.log('_________________________')
             console.log('State: ', state.getState())
             console.log('Action: ', action)
+            console.log('_________________________')
             return next(action)
         }
     }
@@ -23,7 +26,7 @@ function logger(state) {
 const store = createStore(
     rootReducer,
     0,
-    applyMiddleware(thunk, logger))
+    applyMiddleware(thunk, logger, customLogger ))
 
 addBtn.addEventListener('click', () => {
     store.dispatch(increment())
