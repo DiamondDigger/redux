@@ -1,5 +1,5 @@
-import {applyMiddleware, createStore} from 'redux';
 import './style.css'
+import {applyMiddleware, createStore, compose} from 'redux';
 import {rootReducer} from './redux/rootReducer';
 import {asyncIncrement, changeTheme, decrement, increment} from "./redux/actions";
 import thunk from 'redux-thunk'
@@ -25,7 +25,11 @@ function customLogger(state) {
 
 const store = createStore(
     rootReducer,
-    applyMiddleware(thunk, logger, customLogger))
+    compose(
+        applyMiddleware(thunk, logger, customLogger),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+)
 
 addBtn.addEventListener('click', () => {
     store.dispatch(increment())
